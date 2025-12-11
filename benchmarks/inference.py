@@ -1,5 +1,6 @@
 from pgmpy.utils import get_example_model
 from pgmpy.inference import VariableElimination, BeliefPropagation
+from pgmpy.global_vars import config
 
 
 class TimeVariableEliminationAlarm:
@@ -18,6 +19,12 @@ class TimeVariableEliminationAlarm:
         del self.alarm
 
 
+class TimeVariableEliminationAlarmTorch(TimeVariableEliminationAlarm):
+    def setup(self):
+        config.set_backend("torch")
+        super().setup()
+
+
 class TimeVariableEliminationMunin:
     def setup(self):
         self.munin = get_example_model('munin')
@@ -32,6 +39,12 @@ class TimeVariableEliminationMunin:
 
     def teardown(self):
         del self.munin
+
+
+class TimeVariableEliminationMuninTorch(TimeVariableEliminationMunin):
+    def setup(self):
+        config.set_backend("torch")
+        super().setup()
 
 
 class TimeBeliefPropagationAlarm:
@@ -50,3 +63,9 @@ class TimeBeliefPropagationAlarm:
 
     def teardown(self):
         del self.alarm
+
+
+class TimeBeliefPropagationAlarmTorch(TimeBeliefPropagationAlarm):
+    def setup(self):
+        config.set_backend("torch")
+        super().setup()

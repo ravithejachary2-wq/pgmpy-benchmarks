@@ -2,6 +2,7 @@ import numpy as np
 import gc
 
 from pgmpy.factors.discrete import DiscreteFactor
+from pgmpy.global_vars import config
 
 
 class TimeDiscreteFactor:
@@ -26,3 +27,9 @@ class TimeDiscreteFactor:
     def teardown(self):
         del self.phi_large
         gc.collect()
+
+
+class TimeDiscreteFactorTorch(TimeDiscreteFactor):
+    def setup(self):
+        config.set_backend("torch")
+        super().setup()
